@@ -1,3 +1,5 @@
+from django.core.urlresolvers import reverse
+from django.http import HttpResponseRedirect
 from django.shortcuts import render
 from django.views import generic
 from blog.forms import ArticleForm
@@ -12,10 +14,9 @@ class IndexView(generic.ListView):
 
 
 def article_new(request):
-    if request.method == 'POST':
-        form = ArticleForm(request.POST)
-    else:
-        form = ArticleForm()
+    form = ArticleForm(request.POST or None)
+    if form.is_valid():
+        form.save()
+        return HttpResponseRedirect(reverse('blog:index'))
 
     return render(request, 'blog/article_new.html', {'form': form})
-

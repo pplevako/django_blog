@@ -1,6 +1,8 @@
-from django import forms
+from django.forms import ModelForm
+from blog.models import Article
 
 
-class ArticleForm(forms.Form):
-    title = forms.CharField(label='Title', max_length=200)
-    text = forms.CharField(widget=forms.Textarea)
+class ArticleForm(ModelForm):
+    class Meta:
+        model = Article
+        fields = ['title', 'text']
