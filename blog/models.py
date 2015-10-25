@@ -1,9 +1,10 @@
+from django.core.validators import MinLengthValidator
 from django.db import models
 
 
 # Create your models here.
 class Article(models.Model):
-    title = models.CharField(max_length=200)
+    title = models.CharField(max_length=200, validators=[MinLengthValidator(5)])
     text = models.TextField()
 
     def __unicode__(self):  # __str__ on Python 3
