@@ -1,6 +1,5 @@
 from django.core.urlresolvers import reverse
-from django.http import HttpResponseRedirect
-from django.shortcuts import render
+from django.shortcuts import render, redirect
 from django.views import generic
 from blog.forms import ArticleForm
 from blog.models import Article
@@ -17,6 +16,6 @@ def article_new(request):
     form = ArticleForm(request.POST or None)
     if form.is_valid():
         form.save()
-        return HttpResponseRedirect(reverse('blog:index'))
+        return redirect('blog:index')
 
     return render(request, 'blog/article_new.html', {'form': form})
