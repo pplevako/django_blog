@@ -6,4 +6,5 @@ urlpatterns = [
     url(r'^new$', views.article_new, name='article-new'),
     url(r'^(?P<pk>[0-9]+)/$', views.ArticleDetailView.as_view(), name='article-detail'),
     url(r'^(?P<pk>[0-9]+)/edit$', views.article_edit, name='article-edit'),
+    url(r'^(?P<pk>[0-9]+)/delete$', views.article_delete, name='article-delete'),
 ]

@@ -34,3 +34,11 @@ def article_edit(request, pk):
 
     return render(request, 'blog/article_edit.html', {'form': form})
 
+
+def article_delete(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    if request.method == 'POST':
+        article.delete()
+        return redirect('blog:index')
+
+    return render(request, 'blog/article_confirm_delete.html', {'object': article})

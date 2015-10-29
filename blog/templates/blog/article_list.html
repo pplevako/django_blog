@@ -8,6 +8,7 @@
             <span>{{ article.title }}</span>
             <a href="{% url 'blog:article-detail' article.id %}">Show</a>
             <a href="{% url 'blog:article-edit' article.id %}">Edit</a>
+            <a href="{% url 'blog:article-delete' article.id %}">Delete</a>
         </li>
     {% empty %}
         <li>No articles yet.</li>
