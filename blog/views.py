@@ -19,3 +19,7 @@ def article_new(request):
         return redirect('blog:index')
 
     return render(request, 'blog/article_new.html', {'form': form})
+
+
+class ArticleDetailView(generic.DetailView):
+    model = Article
