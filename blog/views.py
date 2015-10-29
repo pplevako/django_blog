@@ -32,5 +32,5 @@ def article_edit(request, pk):
         form.save()
         return redirect('blog:index')
 
-    return render(request, 'blog/article_new.html', {'form': form})
+    return render(request, 'blog/article_edit.html', {'form': form})
 
