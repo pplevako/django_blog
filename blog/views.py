@@ -1,5 +1,5 @@
 from django.core.urlresolvers import reverse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from blog.forms import ArticleForm
 from blog.models import Article
@@ -12,6 +12,10 @@ class IndexView(generic.ListView):
     # context_object_name = 'article_list'
 
 
+class ArticleDetailView(generic.DetailView):
+    model = Article
+
+
 def article_new(request):
     form = ArticleForm(request.POST or None)
     if form.is_valid():
@@ -21,5 +25,12 @@ def article_new(request):
     return render(request, 'blog/article_new.html', {'form': form})
 
 
-class ArticleDetailView(generic.DetailView):
-    model = Article
+def article_edit(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    form = ArticleForm(request.POST or None, instance=article)
+    if form.is_valid():
+        form.save()
+        return redirect('blog:index')
+
+    return render(request, 'blog/article_new.html', {'form': form})
+
