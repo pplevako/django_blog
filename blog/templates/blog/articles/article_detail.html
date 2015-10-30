@@ -10,13 +10,13 @@
 
 <h2>Comments</h2>
 {% for comment in object.comment_set.all %}
-    {% include "blog/comment_detail.html" %}
+    {% include "blog/comments/comment_detail.html" %}
 {% empty %}
     <p>No comments yet.</p>
 {% endfor %}
 
 <h2>Add a comment:</h2>
-{% include "blog/comment_form.html" %}
+{% include "blog/comments/comment_form.html" %}
 
 <a href="{% url 'blog:article-edit' object.id %}">Edit</a> |
 <a href="{% url 'blog:index' %}">Back</a>

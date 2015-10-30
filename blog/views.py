@@ -8,7 +8,7 @@ from blog.models import Article, Comment
 # Create your views here.
 class IndexView(generic.ListView):
     model = Article
-    # template_name = 'blog/article_list.html'
+    template_name = 'blog/articles/article_list.html'
     # context_object_name = 'article_list'
 
 
@@ -24,7 +24,7 @@ def article_detail(request, pk):
         comment.article = article
         comment.save()
         return redirect(article)
-    return render(request, 'blog/article_detail.html', {'form': form, 'object': article})
+    return render(request, 'blog/articles/article_detail.html', {'form': form, 'object': article})
 
 
 def article_new(request):
@@ -33,7 +33,7 @@ def article_new(request):
         form.save()
         return redirect('blog:index')
 
-    return render(request, 'blog/article_new.html', {'form': form})
+    return render(request, 'blog/articles/article_new.html', {'form': form})
 
 
 def article_edit(request, pk):
@@ -43,7 +43,7 @@ def article_edit(request, pk):
         form.save()
         return redirect('blog:index')
 
-    return render(request, 'blog/article_edit.html', {'form': form})
+    return render(request, 'blog/articles/article_edit.html', {'form': form})
 
 
 def article_delete(request, pk):
@@ -52,7 +52,7 @@ def article_delete(request, pk):
         article.delete()
         return redirect('blog:index')
 
-    return render(request, 'blog/article_confirm_delete.html', {'object': article})
+    return render(request, 'blog/articles/article_confirm_delete.html', {'object': article})
 
 
 def comment_delete(request, article_id, comment_id):
@@ -62,4 +62,4 @@ def comment_delete(request, article_id, comment_id):
         comment.delete()
         return redirect(article)
 
-    return render(request, 'blog/article_confirm_delete.html', {'object': comment})
+    return render(request, 'blog/articles/article_confirm_delete.html', {'object': comment})
