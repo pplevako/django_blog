@@ -1,7 +1,7 @@
 from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
-from blog.forms import ArticleForm
+from blog.forms import ArticleForm, CommentForm
 from blog.models import Article
 
 
@@ -14,6 +14,17 @@ class IndexView(generic.ListView):
 
 class ArticleDetailView(generic.DetailView):
     model = Article
+
+
+def article_detail(request, pk):
+    article = get_object_or_404(Article, pk=pk)
+    form = CommentForm(request.POST or None)
+    if form.is_valid():
+        comment = form.save(commit=False)
+        comment.article = article
+        comment.save()
+        return redirect(article)
+    return render(request, 'blog/article_detail.html', {'form': form, 'object': article})
 
 
 def article_new(request):

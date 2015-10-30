@@ -8,5 +8,8 @@
     {{ object.text }}
 </p>
 
+<h2>Add a comment:</h2>
+{% include "blog/comment_form.html" %}
+
 <a href="{% url 'blog:article-edit' object.id %}">Edit</a> |
 <a href="{% url 'blog:index' %}">Back</a>
