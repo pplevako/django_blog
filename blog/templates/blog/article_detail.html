@@ -10,15 +10,7 @@
 
 <h2>Comments</h2>
 {% for comment in object.comment_set.all %}
-    <p>
-        <strong>Commenter:</strong>
-        {{ comment.commenter }}
-    </p>
-
-    <p>
-        <strong>Comment:</strong>
-        {{ comment.text }}
-    </p>
+    {% include "blog/comment_detail.html" %}
 {% empty %}
     <p>No comments yet.</p>
 {% endfor %}

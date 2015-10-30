@@ -1,0 +1,13 @@
+<p>
+    <strong>Commenter:</strong>
+    {{ comment.commenter }}
+</p>
+
+<p>
+    <strong>Comment:</strong>
+    {{ comment.text }}
+</p>
+
+<p>
+    <a href="{% url 'blog:comment-delete' object.id comment.id %}">Delete</a>
+</p>

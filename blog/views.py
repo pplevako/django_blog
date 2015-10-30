@@ -2,7 +2,7 @@ from django.core.urlresolvers import reverse
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from blog.forms import ArticleForm, CommentForm
-from blog.models import Article
+from blog.models import Article, Comment
 
 
 # Create your views here.
@@ -53,3 +53,13 @@ def article_delete(request, pk):
         return redirect('blog:index')
 
     return render(request, 'blog/article_confirm_delete.html', {'object': article})
+
+
+def comment_delete(request, article_id, comment_id):
+    comment = get_object_or_404(Comment, pk=comment_id)
+    article = get_object_or_404(Article, pk=article_id)
+    if request.method == 'POST':
+        comment.delete()
+        return redirect(article)
+
+    return render(request, 'blog/article_confirm_delete.html', {'object': comment})
