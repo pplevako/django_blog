@@ -8,6 +8,21 @@
     {{ object.text }}
 </p>
 
+<h2>Comments</h2>
+{% for comment in object.comment_set.all %}
+    <p>
+        <strong>Commenter:</strong>
+        {{ comment.commenter }}
+    </p>
+
+    <p>
+        <strong>Comment:</strong>
+        {{ comment.text }}
+    </p>
+{% empty %}
+    <p>No comments yet.</p>
+{% endfor %}
+
 <h2>Add a comment:</h2>
 {% include "blog/comment_form.html" %}
 
