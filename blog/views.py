@@ -39,7 +39,7 @@ def article_edit(request, pk):
     form = ArticleForm(request.POST or None, instance=article)
     if form.is_valid():
         form.save()
-        return redirect('blog:index')
+        return redirect(article)
 
     return render(request, 'blog/articles/article_edit.html', {'form': form})
 
