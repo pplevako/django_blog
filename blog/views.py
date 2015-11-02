@@ -53,10 +53,10 @@ class ArticleDeleteView(ArticleMixin, generic.DeleteView):
 
 
 def comment_delete(request, article_id, comment_id):
-    comment = get_object_or_404(Comment, pk=comment_id)
     article = get_object_or_404(Article, pk=article_id)
+    comment = get_object_or_404(article.comment_set, pk=comment_id)
     if request.method == 'POST':
         comment.delete()
         return redirect(article)
 
-    return render(request, 'blog/articles/article_confirm_delete.html', {'object': comment})
+    return render(request, 'blog/comments/comment_confirm_delete.html', {'object': comment})
