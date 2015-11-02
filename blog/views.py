@@ -5,15 +5,18 @@ from blog.forms import ArticleForm, CommentForm
 from blog.models import Article, Comment
 
 
-# Create your views here.
-class IndexView(generic.ListView):
+class ArticleMixin(object):
     model = Article
+    form_class = ArticleForm  # also one can use fields = ['title', 'text']
+
+
+class IndexView(ArticleMixin, generic.ListView):
     template_name = 'blog/articles/article_list.html'
     # context_object_name = 'article_list'
 
 
-class ArticleDetailView(generic.DetailView):
-    model = Article
+# class ArticleDetailView(ArticleMixin, generic.DetailView):
+#     pass
 
 
 def article_detail(request, pk):
@@ -27,13 +30,8 @@ def article_detail(request, pk):
     return render(request, 'blog/articles/article_detail.html', {'form': form, 'object': article})
 
 
-def article_new(request):
-    form = ArticleForm(request.POST or None)
-    if form.is_valid():
-        form.save()
-        return redirect('blog:index')
-
-    return render(request, 'blog/articles/article_new.html', {'form': form})
+class ArticleCreateView(ArticleMixin, generic.CreateView):
+    template_name = 'blog/articles/article_new.html'
 
 
 def article_edit(request, pk):
