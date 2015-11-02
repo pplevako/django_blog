@@ -34,14 +34,8 @@ class ArticleCreateView(ArticleMixin, generic.CreateView):
     template_name = 'blog/articles/article_new.html'
 
 
-def article_edit(request, pk):
-    article = get_object_or_404(Article, pk=pk)
-    form = ArticleForm(request.POST or None, instance=article)
-    if form.is_valid():
-        form.save()
-        return redirect(article)
-
-    return render(request, 'blog/articles/article_edit.html', {'form': form})
+class ArticleUpdateView(ArticleMixin, generic.UpdateView):
+    template_name = 'blog/articles/article_edit.html'
 
 
 def article_delete(request, pk):
