@@ -1,4 +1,4 @@
-from django.core.urlresolvers import reverse
+from django.core.urlresolvers import reverse_lazy
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views import generic
 from blog.forms import ArticleForm, CommentForm
@@ -38,13 +38,18 @@ class ArticleUpdateView(ArticleMixin, generic.UpdateView):
     template_name = 'blog/articles/article_edit.html'
 
 
-def article_delete(request, pk):
-    article = get_object_or_404(Article, pk=pk)
-    if request.method == 'POST':
-        article.delete()
-        return redirect('blog:index')
+# def article_delete(request, pk):
+#     article = get_object_or_404(Article, pk=pk)
+#     if request.method == 'POST':
+#         article.delete()
+#         return redirect('blog:index')
+#
+#     return render(request, 'blog/articles/article_confirm_delete.html', {'object': article})
 
-    return render(request, 'blog/articles/article_confirm_delete.html', {'object': article})
+
+class ArticleDeleteView(ArticleMixin, generic.DeleteView):
+    template_name = 'blog/articles/article_confirm_delete.html'
+    success_url = reverse_lazy('blog:index')  # or use get_success_url with a regular reverse
 
 
 def comment_delete(request, article_id, comment_id):
